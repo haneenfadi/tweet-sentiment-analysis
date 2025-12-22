@@ -3,11 +3,10 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B.svg)](https://streamlit.io/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104%2B-009688.svg)](https://fastapi.tiangolo.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 📖 About
 
-A professional Python project that analyzes the sentiment of tweets using a pretrained Hugging Face model (`cardiffnlp/twitter-xlm-roberta-base-sentiment`).
+A Python project that analyzes the sentiment of tweets using a pretrained Hugging Face model (`cardiffnlp/twitter-xlm-roberta-base-sentiment`).
 
 **Supports three sentiment classes:**
 - 😊 **Positive** (label: 2)
@@ -17,22 +16,22 @@ A professional Python project that analyzes the sentiment of tweets using a pret
 The project includes both a **FastAPI backend** for API integration and a beautiful **Streamlit interface** for interactive usage.
 
 ---
+## Features
 
-## ✨ Features
+- **Accurate sentiment prediction** using a state-of-the-art Hugging Face model  
+- **Robust text preprocessing pipeline**, including:
+  - Removal of URLs and mentions  
+  - Cleaning of special characters and numbers  
+  - Text normalization (lowercasing)  
+- **FastAPI-based API** for seamless integration  
+- **Modern Streamlit interface** with real-time sentiment visualization  
+- **Secure API access** using password-based authentication  
+- **Well-structured project architecture** following OOP principles  
 
-- 🎯 **Accurate sentiment prediction** using state-of-the-art Hugging Face model
-- 🧹 **Robust text preprocessing pipeline**:
-  - Remove URLs and mentions
-  - Clean special characters and numbers
-  - Text normalization (lowercase)
-- 🚀 **FastAPI endpoint** for seamless integration
-- 🎨 **Modern Streamlit UI** with real-time sentiment visualization
-- 🔒 **Secure API** with password authentication
-- 📊 **Professional project structure** following OOP principles
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -195,7 +194,7 @@ tweet-sentiment-analysis/
     │   └── streamlit_app.py    # Streamlit interface
     ├── data/                   # Data storage
     │   └── tweets.csv          # Sample dataset
-    ├── routes/                 # API routes (optional)
+    ├── routes/                 # API routes
     │   ├── base.py
     │   └── predict.py
     ├── services/               # Business logic layer
@@ -205,11 +204,9 @@ tweet-sentiment-analysis/
     │   └── tweets_analysis.py  # Sentiment analysis logic
     └── utils/                  # Utilities layer
         ├── __init__.py
-        ├── config.py           # Configuration management
-        └── schemas.py          # Pydantic data models
+        ├── config.py           # Configuration management (stores the model_id to allow easy model changes in the future)
+        └── schemas.py          # Pydantic schemas for request and response validation
 ```
-
----
 
 ## ⚙️ Configuration
 
@@ -221,14 +218,6 @@ Create a `.env` file in the project root with the following:
 # API Authentication
 API_AUTH_PASSWORD=your_secure_password_here
 
-# Model Configuration (optional)
-MODEL_NAME=cardiffnlp/twitter-xlm-roberta-base-sentiment
-MAX_LENGTH=128
-
-# Server Configuration (optional)
-API_HOST=0.0.0.0
-API_PORT=8000
-STREAMLIT_PORT=8501
 ```
 
 > 📝 **Note:** A `.env.example` file is provided as a template. Copy it and add your actual credentials.
@@ -244,110 +233,13 @@ STREAMLIT_PORT=8501
 
 ---
 
-## 🛠 Technical Notes
-
-### Import Path Resolution
-
-This project uses a nested structure (`src/app/streamlit_app.py`). To handle Python imports correctly, the following code is included at the top of `streamlit_app.py`:
-
-```python
-import sys
-import os
-
-# Add project root to Python path
-if 'src' not in sys.modules:
-    parent_dir = os.path.dirname(os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__))))
-    sys.path.insert(0, parent_dir)
-```
-
-**Why is this needed?**
-- When Python runs a nested file, it looks for imports starting from that file's location
-- This code adds the project root (`tweet-sentiment-analysis/`) to Python's search path
-- Now Python can find `src` when importing: `from src.services.pipeline import Pipeline`
-
-**Key Points:**
-- The number of `os.path.dirname()` calls depends on how deep your file is nested
-- For `src/app/streamlit_app.py` (3 levels deep), we use 3 `dirname()` calls
-- This is a standard solution for Python projects with nested structures
-
----
-
-## 🧪 Testing
-
-**Test with sample tweets:**
-
-```python
-# Positive
-"I absolutely love this product! Best purchase ever! 😊"
-
-# Negative  
-"Terrible service, very disappointed. Would not recommend."
-
-# Neutral
-"The weather today is cloudy with a chance of rain."
-```
-
----
-
-## 📦 Dependencies
-
-Main dependencies (see `requirements.txt` for full list):
-
-- `streamlit>=1.28.0` - Interactive web interface
-- `fastapi>=0.104.0` - API framework
-- `uvicorn>=0.24.0` - ASGI server
-- `transformers>=4.35.0` - Hugging Face models
-- `torch>=2.0.0` - Deep learning framework
-- `pandas>=2.0.0` - Data manipulation
-- `python-dotenv>=1.0.0` - Environment variable management
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 👤 Author
 
 **Haneen Fadi**
 
+- GitHub: ## 👤 Author
+
+**Haneen Fadi**
+
 - GitHub: [@haneenfadi](https://github.com/haneenfadi)
-- Email: your.email@example.com
-
----
-
-## 🙏 Acknowledgments
-
-- [Hugging Face](https://huggingface.co/) for providing the pretrained model
-- [Cardiff NLP](https://huggingface.co/cardiffnlp) for the sentiment analysis model
-- [Kaggle](https://www.kaggle.com/) for the Twitter sentiment dataset
-- The open-source community for amazing tools and libraries
-
----
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/haneenfadi/tweet-sentiment-analysis/issues) page
-2. Create a new issue with detailed information
-3. Contact the maintainer
-
----
-
-**⭐ If you find this project helpful, please consider giving it a star!**
+- Email: haneenqutishat03@gmail.com
