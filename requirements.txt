@@ -1,0 +1,8 @@
+pandas==2.3.3          # Data handling
+transformers==4.56.2    # NLP models
+torch==2.8.0            # Model backend
+fastapi==0.116.1        # API endpoints
+uvicorn==0.35.0         # Run FastAPI server
+sentencepiece==0.2.1    # Model tokenization
+loguru==0.7.3           # Logging library for better logging and debugging
+python-dotenv==1.1.1    #  Load environment variables from a .env file 

@@ -1,0 +1,13 @@
+tweets_analysis
+__pycache__/
+*.pyc
+.git
+.gitignore
+.env
+data/
+models/
+images/
+*.log
+src/data/tweets.csv
+*.pdf
+*.ipynb
