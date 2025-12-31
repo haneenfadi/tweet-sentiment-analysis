@@ -2,7 +2,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from src.utils.config import model_id_dict
 class SentimentModel:
-    def __init__(self, model_id=model_id_dict["model_1"]):
+    def __init__(self, model_id=model_id_dict["model_4"]):
         self.model_id = model_id
         self.load_model()
     

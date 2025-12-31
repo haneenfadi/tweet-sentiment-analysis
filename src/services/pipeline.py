@@ -6,7 +6,7 @@ class Pipeline:
     """
     Full pipeline: text preprocessing + sentiment prediction
     """
-    def __init__(self, model_id=model_id_dict["model_1"]):
+    def __init__(self, model_id=model_id_dict["model_4"]):
         self.preprocessor = TweetDataProcessor()
         self.model = SentimentModel(model_id=model_id)
 
