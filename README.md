@@ -63,6 +63,20 @@ pipeline designed for the [Twitter Sentiment Analysis Dataset](https://www.kaggl
 **Note:** Only the text column was utilized. The original target labels were ignored as the goal was to build a custom three-class sentiment classifier (Negative, Neutral, Positive). The preprocessing pipeline was specifically tailored to handle tweet-specific features such as mentions, hashtags, URLs, treating the data as unlabeled input for real-world inference.
 
 ---
+## Model Performance
+
+**Evaluation on 100 manually labeled tweets:**
+
+- Overall Accuracy: **91%**
+- Macro F1-Score: **0.90**
+
+| Class    | Precision | Recall | F1-Score |
+|----------|-----------|--------|----------|
+| Negative | 0.91      | 0.96   | 0.93     |
+| Neutral  | 0.91      | 0.91   | 0.91     |
+| Positive | 0.91      | 0.81   | 0.86     |
+
+---
 ## Installation
 
 Clone the repository and set up environment:
