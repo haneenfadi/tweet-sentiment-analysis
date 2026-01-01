@@ -21,4 +21,3 @@ class TweetDataProcessor:
         text = self.remove_urls(text)
         text = self.clean_text(text)
         return text
-
