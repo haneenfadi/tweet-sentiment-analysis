@@ -1,0 +1,39 @@
+{
+  "total_evaluated": 100,
+  "accuracy": 0.91,
+  "correct": 91,
+  "confusion_matrix": [
+    [
+      50,
+      0,
+      2
+    ],
+    [
+      2,
+      20,
+      0
+    ],
+    [
+      3,
+      2,
+      21
+    ]
+  ],
+  "per_class": {
+    "Negative": {
+      "count": 52,
+      "correct": 50,
+      "accuracy": 0.9615384615384616
+    },
+    "Neutral": {
+      "count": 22,
+      "correct": 20,
+      "accuracy": 0.9090909090909091
+    },
+    "Positive": {
+      "count": 26,
+      "correct": 21,
+      "accuracy": 0.8076923076923077
+    }
+  }
+}

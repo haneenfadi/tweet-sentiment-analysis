@@ -5,16 +5,27 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
 
-Production-ready sentiment analysis system for tweets using the `cardiffnlp/twitter-xlm-roberta-base-sentiment` model. Features dual deployment options with FastAPI REST API and Streamlit web interface.
+Production-ready sentiment analysis system for tweets using the `DunnBC22/distilbert-base-uncased-US_Airline_Twitter_Sentiment_Analysis` model. Features dual deployment options with FastAPI REST API and Streamlit web interface.
+
+---
+
+## Technical Features
+
+- **Preprocessing Pipeline:** URL removal, mention normalization, special character handling, text normalization
+- **API Security:** Password-based authentication with environment variable configuration
+- **Dual Interface:** RESTful API for integration, Streamlit UI for interactive testing
+- **Container Support:** Docker and Docker Compose ready
+- **Architecture:** Clean separation of concerns with services, routes, and utilities layers
 
 ---
 
 ## Model Architecture
 
-**Base Model:** XLM-RoBERTa Base  
-**Task:** Multi-class Text Classification  
+**Base Model:** distilbert-base-uncased  
+**Task:** Multi-class Text Classification (Sentiment Analysis)  
 **Training:** Fine-tuned on Twitter sentiment data  
-**Optimization:** Multilingual support with English optimization
+**Language Support:** English-only
+**Fine-tuned on:** US Airline Twitter Sentiment dataset
 
 **Classification Schema:**
 
@@ -45,16 +56,27 @@ Production-ready sentiment analysis system for tweets using the `cardiffnlp/twit
 
 ---
 
-## Technical Features
+## Dataset
 
-- **Preprocessing Pipeline:** URL removal, mention normalization, special character handling, text normalization
-- **API Security:** Password-based authentication with environment variable configuration
-- **Dual Interface:** RESTful API for integration, Streamlit UI for interactive testing
-- **Container Support:** Docker and Docker Compose ready
-- **Architecture:** Clean separation of concerns with services, routes, and utilities layers
+pipeline designed for the [Twitter Sentiment Analysis Dataset](https://www.kaggle.com/datasets/raj713335/twittesentimentanalysis/data) 
+
+**Note:** Only the text column was utilized. The original target labels were ignored as the goal was to build a custom three-class sentiment classifier (Negative, Neutral, Positive). The preprocessing pipeline was specifically tailored to handle tweet-specific features such as mentions, hashtags, URLs, treating the data as unlabeled input for real-world inference.
 
 ---
+## Model Performance
 
+**Evaluation on 100 manually labeled tweets:**
+
+- Overall Accuracy: **91%**
+- Macro F1-Score: **0.90**
+
+| Class    | Precision | Recall | F1-Score |
+|----------|-----------|--------|----------|
+| Negative | 0.91      | 0.96   | 0.93     |
+| Neutral  | 0.91      | 0.91   | 0.91     |
+| Positive | 0.91      | 0.81   | 0.86     |
+
+---
 ## Installation
 
 Clone the repository and set up environment:
@@ -115,7 +137,7 @@ Interactive documentation: `http://localhost:8000/docs`
 ```bash
 curl -X POST "http://localhost:8000/api/v1/sentiment/predict" \
   -H "Content-Type: application/json" \
-  -H "API_AUTH_PASSWORD: your_secure_password_here" \
+  -H "Authorization:Bearer your_secure_password_here" \
   -d '{
     "text": "@switchfoot http://twitpic.com/2y1zl - Awww, that'\''s a bummer. You shoulda got David Carr of Third Day to do it. ;D"
   }'
@@ -135,33 +157,51 @@ curl -X POST "http://localhost:8000/api/v1/sentiment/predict" \
 
 ```
 tweet-sentiment-analysis/
-├── Dockerfile                   # Container definition
-├── docker-compose.yml           # Orchestration configuration
-├── requirements.txt             # Python dependencies
-├── .env.example                 # Environment template
-└── src/
-    ├── app/
-    │   ├── api.py               # FastAPI application
-    │   └── streamlit_app.py     # Streamlit interface
-    ├── services/
-    │   ├── pipeline.py          # Prediction orchestration
-    │   ├── preprocessing.py     # Text preprocessing
-    │   └── tweets_analysis.py   # Model inference
-    ├── utils/
-    │   ├── config.py            # Configuration management
-    │   └── schemas.py           # Pydantic models
-    ├── routes/
-    │   ├── base.py              # Base routing
-    │   └── predict.py           # Prediction endpoints
-    └── data/
-        └── tweets.csv           # Sample dataset
+│
+├── Dockerfile                      # Container definition for deployment
+├── docker-compose.yml              # Multi-container orchestration
+├── .dockerignore                   # Docker build exclusions
+├── .gitignore                      # Git tracking exclusions
+├── .gitattributes                  # Git attribute configuration
+├── .env.example                    # Environment variables template
+├── requirements.txt                # Python package dependencies
+├── README.md                       # Project documentation
+│
+├── images/                         # Visualization assets
+│   ├── Negative.PNG
+│   ├── Positive.PNG
+│   └── Neutral.PNG
+│
+└── src/                            # Source code directory
+    │
+    ├── app/                        # Application layer
+    │   ├── api.py                  # FastAPI REST endpoints
+    │   └── streamlit_app.py        # Interactive web interface
+    │
+    ├── routes/                     # API routing
+    │   ├── base.py                 # Base route handlers
+    │   └── predict.py              # Prediction route definitions
+    │
+    ├── services/                   # Business logic layer
+    │   ├── pipeline.py             # End-to-end prediction pipeline
+    │   ├── preprocessing.py        # Text cleaning and normalization
+    │   └── tweets_analysis.py      # Sentiment model 
+    │
+    ├── utils/                      # Utilities and helpers
+    │   ├── config.py               # Configuration management
+    │   └── schemas.py              # Pydantic data models
+    │
+    ├── data/                       
+    │   └── tweets.csv              # Sample tweet dataset
+    │
+    
+    └── test/                       # Testing suite
+        ├── evaluate.py 
+        # Model evaluation metrics
+        ├── test_500_sample.py      # Sample-based testing
+        └── test_model_vs_model.py  # Comparative model analysis
+      
 ```
-
----
-
-## Dataset
-
-Preprocessing pipeline designed for the [Twitter Sentiment Analysis Dataset](https://www.kaggle.com/datasets/raj713335/twittesentimentanalysis/data) from Kaggle.
 
 ---
 
